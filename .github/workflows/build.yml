@@ -8,6 +8,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # One jar per Minecraft version.
+        mc: [ '26.1', '26.1.1', '26.1.2', '26.2', '26.3' ]
 
     steps:
       - name: Checkout
@@ -22,12 +27,12 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
 
-      - name: Build
-        run: ./gradlew build --no-daemon --stacktrace
+      - name: Build for Minecraft ${{ matrix.mc }}
+        run: ./gradlew build -Pmc=${{ matrix.mc }} --no-daemon --stacktrace
 
-      - name: Upload artifacts
+      - name: Upload URC for ${{ matrix.mc }}
         uses: actions/upload-artifact@v4
         with:
-          name: URC
+          name: URC-${{ matrix.mc }}
           path: build/libs/*.jar
           if-no-files-found: error

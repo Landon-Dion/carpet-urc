@@ -14,7 +14,8 @@
 		"ZombieMixin",
 		"GolemSensorMixin",
 		"AbstractCookingRecipeMixin",
-		"ClayFortuneMixin"
+		"ClayFortuneMixin",
+		"EntityAccessor"
 	],
 	"injectors": {
 		"defaultRequire": 1

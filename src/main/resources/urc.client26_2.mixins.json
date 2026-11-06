@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "com.urc.mixin.client",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"HudMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

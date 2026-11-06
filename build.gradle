@@ -3,7 +3,30 @@ plugins {
 	id 'maven-publish'
 }
 
-version = project.mod_version
+// ---------------------------------------------------------------------------
+// Per-version builds:  ./gradlew build -Pmc=26.2
+// Each Minecraft version gets its own jar with an exact version dependency.
+// ---------------------------------------------------------------------------
+def mcVersion = (project.findProperty('mc') ?: project.minecraft_version).toString()
+
+def versionTable = [
+		'26.1'  : [api: '0.155.3+26.1.2', range: '~26.1'],
+		'26.1.1': [api: '0.155.3+26.1.2', range: '~26.1.1'],
+		'26.1.2': [api: '0.155.3+26.1.2', range: '~26.1.2'],
+		'26.2'  : [api: '0.161.0+26.2', range: '~26.2'],
+		'26.3'  : [api: '0.165.0+26.3', range: '~26.3'],
+]
+
+def target = versionTable[mcVersion]
+if (target == null) {
+	throw new GradleException("Unknown Minecraft version '${mcVersion}'. Known versions: ${versionTable.keySet()}")
+}
+
+def is261 = mcVersion.startsWith('26.1')
+def clientMixinConfig = is261 ? 'urc.client.mixins.json' : 'urc.client26_2.mixins.json'
+def fabricApiVersion = (project.findProperty('fabric_api') ?: target.api).toString()
+
+version = "${project.mod_version}+${mcVersion}"
 group = project.maven_group
 
 base {
@@ -21,24 +44,33 @@ repositories {
 	}
 }
 
+// The HUD class moved from Gui to Hud in 26.2; each build only compiles the matching mixin.
+sourceSets {
+	main {
+		java.srcDir(is261 ? 'src/client26_1/java' : 'src/client26_2/java')
+	}
+}
+
 dependencies {
-	// To change the versions see the gradle.properties file
-	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	minecraft "com.mojang:minecraft:${mcVersion}"
 	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${fabricApiVersion}"
 
 	// Carpet Mod extension API (carpet.CarpetExtension, carpet.api.settings.*).
-	// Compile-only: the user supplies Carpet at runtime, it is a hard dependency.
 	compileOnly "maven.modrinth:carpet:${project.carpet_version}"
 }
 
 processResources {
-	def version = project.version
-	inputs.property "version", version
+	def props = [
+			version            : project.version,
+			mc_dep             : target.range,
+			client_mixin_config: clientMixinConfig,
+	]
+	inputs.properties(props)
 
-	filesMatching("fabric.mod.json") {
-		expand "version": version
+	filesMatching('fabric.mod.json') {
+		expand props
 	}
 }
 

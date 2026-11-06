@@ -9,8 +9,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemInstance;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -49,7 +49,7 @@ public abstract class ClayFortuneMixin {
 			return drops;
 		}
 
-		if (!(tool instanceof ItemStack toolStack) || !(toolStack.getItem() instanceof ShovelItem)) {
+		if (!(tool instanceof ItemStack toolStack) || !toolStack.is(ItemTags.SHOVELS)) {
 			return drops;
 		}
 

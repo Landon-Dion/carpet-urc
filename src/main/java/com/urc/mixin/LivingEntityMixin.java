@@ -45,8 +45,9 @@ public abstract class LivingEntityMixin {
 		Entity attacker = source.getEntity();
 
 		if (attacker instanceof Player) {
-			// invulnerableTime lives on Entity, the superclass of this LivingEntity.
-			((Entity) (Object) this).invulnerableTime = 0;
+			// invulnerableTime lives on Entity; the accessor keeps this working when the field
+			// changes visibility between 26.x versions.
+			((EntityAccessor) (Object) this).urc$setInvulnerableTime(0);
 		}
 	}
 

@@ -9,7 +9,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.PushReaction;
 
 /** Blocks added by URC. */
 public final class URCBlocks {
@@ -27,7 +26,7 @@ public final class URCBlocks {
 					.strength(-1.0f)
 					.sound(SoundType.GLASS)
 					.lightLevel(state -> 11)
-					.pushReaction(PushReaction.BLOCK));
+					);
 
 	private URCBlocks() {
 	}

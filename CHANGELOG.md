@@ -6,6 +6,9 @@ All notable changes to this project are documented here.
 
 Initial release for Minecraft 26.x on Fabric, as a Carpet Mod extension.
 
+Artifacts are built **per Minecraft version** (`URC-1.0.0+26.1.jar` ... `URC-1.0.0+26.3.jar`), each
+pinned to its exact game version.
+
 ### Combat
 - `noAttackCooldown` - removes the attack cooldown (full-charge hits, minimum attack charge gate bypassed,
   armor stands ignore player damage, HUD indicator hidden on 26.1.x).

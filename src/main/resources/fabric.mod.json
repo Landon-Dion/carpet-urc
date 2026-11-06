@@ -22,13 +22,13 @@
 	"mixins": [
 		"urc.mixins.json",
 		{
-			"config": "urc.client.mixins.json",
+			"config": "${client_mixin_config}",
 			"environment": "client"
 		}
 	],
 	"depends": {
 		"fabricloader": ">=0.20.1",
-		"minecraft": ">=26.1 <27",
+		"minecraft": "${mc_dep}",
 		"java": ">=25",
 		"carpet": ">=26.1"
 	}

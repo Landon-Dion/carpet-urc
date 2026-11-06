@@ -13,7 +13,7 @@ built-in ones - no extra commands, no config screens.
 
 | Component | Version |
 | --- | --- |
-| Minecraft | 26.1 - 26.3 (any 26.x release) |
+| Minecraft | 26.1 / 26.1.1 / 26.1.2 / 26.2 / 26.3 (one jar per version) |
 | Java | 25+ |
 | Fabric Loader | 0.20.1+ |
 | Carpet Mod | 26.1+ (**required**) |
@@ -21,14 +21,15 @@ built-in ones - no extra commands, no config screens.
 ## Installation
 
 1. Install Fabric Loader 0.20.1+ and Fabric API.
-2. Drop `Carpet` and `URC-<version>.jar` into `mods/`.
+2. Pick the jar that matches your game version, e.g. `URC-1.0.0+26.1.2.jar` for Minecraft 26.1.2,
+   and drop it together with `Carpet` into `mods/`.
 3. In game, run `/carpet <rule> <value>` (requires Carpet's command permission).
 
 ## 规则列表
 
 | 规则 | 类型 | 说明 |
 | --- | --- | --- |
-| `noAttackCooldown` | bool | 完全移除攻击冷却（并在 26.1.x 上隐藏 HUD 指示器） |
+| `noAttackCooldown` | bool | 完全移除攻击冷却并隐藏 HUD 指示器 |
 | `noAttackSpeedLimit` | bool | 移除受击无敌帧，攻击速率不设上限 |
 | `customNetherPortal` | bool | 任意竖直闭环黑曜石框都能点燃成地狱门（1~21 格） |
 | `horizontalNetherPortal` | bool | 平铺在地面的闭环可点燃成朝上的横向地狱门 |
@@ -49,26 +50,37 @@ built-in ones - no extra commands, no config screens.
 /carpet netherPortalSearchRadius 512
 ```
 
-## Compatibility notes
+## Version support
 
-- Built against **26.1.2**; every server-side mixin target (class + method + descriptor) was verified to be
-  byte-identical in the 26.2 / 26.3 jars, so one jar covers the whole 26.x series.
-- 26.2 moved the HUD from `net.minecraft.client.gui.Gui` to `net.minecraft.client.gui.Hud`. The client
-  mixin that hides the attack indicator is therefore marked optional (`required: false`, `require = 0`):
-  on 26.2+ it simply skips instead of crashing, and the crosshair keeps its vanilla indicator.
-  The gameplay parts of `noAttackCooldown` still apply on every version.
-- 26.x has no obfuscation and no remapping: the project has no `mappings` block and uses `jar` (not `remapJar`).
+Every Minecraft version gets its **own jar**, with an exact `minecraft` dependency
+(`~26.1.2`, `~26.2`, ...) so the wrong build cannot be installed by accident:
+
+| Minecraft | Jar | Fabric API used for the build |
+| --- | --- | --- |
+| 26.1 | `URC-<ver>+26.1.jar` | 0.155.3+26.1.2 |
+| 26.1.1 | `URC-<ver>+26.1.1.jar` | 0.155.3+26.1.2 |
+| 26.1.2 | `URC-<ver>+26.1.2.jar` | 0.155.3+26.1.2 |
+| 26.2 | `URC-<ver>+26.2.jar` | 0.161.0+26.2 |
+| 26.3 | `URC-<ver>+26.3.jar` | 0.165.0+26.3 |
+
+The CI workflow (`.github/workflows/build.yml`) builds all five in parallel as a matrix and uploads
+one artifact per version.
+
+26.2 moved the HUD from `net.minecraft.client.gui.Gui` to `net.minecraft.client.gui.Hud`, so the
+build compiles one of two client mixins depending on the target (`src/client26_1`, `src/client26_2`)
+- the attack-indicator hiding works on every version.
 
 ## Building
 
 ```bash
-./gradlew build
+./gradlew build              # default target: 26.1.2 (gradle.properties)
+./gradlew build -Pmc=26.3    # build the 26.3 jar
 ```
 
-The jar lands in `build/libs/URC-<version>.jar`.
-
-To target another 26.x release, change `minecraft_version` and `fabric_api_version` in
-[gradle.properties](gradle.properties) (versions: <https://fabricmc.net/develop>).
+Supported `-Pmc` values: `26.1`, `26.1.1`, `26.1.2`, `26.2`, `26.3`. The jar lands in
+`build/libs/URC-<mod version>+<mc>.jar`; its `fabric.mod.json` is pinned to that version
+automatically, and the matching client mixin (`Gui` vs `Hud`) plus Fabric API version are selected
+from the table above.
 
 ## Project layout
 
@@ -80,7 +92,8 @@ src/main/java/com/urc/
   URCBlocks.java           block registration
   portal/                  custom / horizontal nether portal frame logic + block
   mixin/                   server-side mixins (one file per feature area)
-  mixin/client/            optional client HUD mixin
+src/client26_1/java/       HUD mixin for 26.1.x (net.minecraft.client.gui.Gui)
+src/client26_2/java/       HUD mixin for 26.2+ (net.minecraft.client.gui.Hud)
 src/main/resources/
   fabric.mod.json, urc*.mixins.json
   assets/urc/              lang, icon, block model
