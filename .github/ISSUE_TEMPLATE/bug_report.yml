@@ -1,0 +1,50 @@
+name: Bug report
+description: Something does not work as expected
+labels: [ bug ]
+body:
+  - type: input
+    id: mc
+    attributes:
+      label: Minecraft version
+      description: e.g. 26.1.2
+    validations:
+      required: true
+
+  - type: input
+    id: jar
+    attributes:
+      label: URC jar
+      description: exact file name, e.g. URC-1.0.0+26.1.2.jar
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: Carpet / Fabric API / Loader versions
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. /carpet noAttackCooldown true
+        2. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour / actual behaviour
+    validations:
+      required: true
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Log
+      description: logs/latest.log, or the lines mentioning urc / Mixin
+      render: text
