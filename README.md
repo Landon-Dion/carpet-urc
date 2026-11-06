@@ -1,6 +1,6 @@
 # URC
 
-[![Build](https://github.com/URC-Mod/URC/actions/workflows/build.yml/badge.svg)](https://github.com/URC-Mod/URC/actions/workflows/build.yml)
+[![Build](https://github.com/Landon-Dion/carpet-urc/actions/workflows/build.yml/badge.svg)](https://github.com/Landon-Dion/carpet-urc/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **URC** is a [Carpet Mod](https://modrinth.com/mod/carpet) extension for **Minecraft Java 26.x** on Fabric.
