@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "urc",
+	"version": "${version}",
+	"name": "URC",
+	"description": "A Carpet Mod extension: combat tweaks, custom-shaped nether portals, anvil / villager / iron farm QoL and more, all toggleable through /carpet rules.",
+	"authors": [
+		"URC"
+	],
+	"contact": {
+		"homepage": "https://github.com/URC-Mod/URC",
+		"sources": "https://github.com/URC-Mod/URC"
+	},
+	"license": "MIT",
+	"icon": "assets/urc/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.urc.URC"
+		]
+	},
+	"mixins": [
+		"urc.mixins.json",
+		{
+			"config": "urc.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.20.1",
+		"minecraft": ">=26.1 <27",
+		"java": ">=25",
+		"carpet": ">=26.1"
+	}
+}

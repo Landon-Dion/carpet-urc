@@ -1,0 +1,14 @@
+{
+	"required": false,
+	"package": "com.urc.mixin.client",
+	"compatibilityLevel": "JAVA_25",
+	"client": [
+		"GuiMixin"
+	],
+	"injectors": {
+		"defaultRequire": 0
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

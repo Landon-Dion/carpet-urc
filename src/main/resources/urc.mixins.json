@@ -1,0 +1,25 @@
+{
+	"required": true,
+	"package": "com.urc.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"PlayerMixin",
+		"LivingEntityMixin",
+		"ArmorStandMixin",
+		"BaseFireBlockMixin",
+		"NetherPortalBlockMixin",
+		"PortalForcerMixin",
+		"AnvilMenuMixin",
+		"VillagerMixin",
+		"ZombieMixin",
+		"GolemSensorMixin",
+		"AbstractCookingRecipeMixin",
+		"ClayFortuneMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

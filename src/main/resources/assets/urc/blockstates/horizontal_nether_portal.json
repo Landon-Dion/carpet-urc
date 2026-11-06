@@ -1,0 +1,5 @@
+{
+	"variants": {
+		"": { "model": "urc:block/horizontal_nether_portal" }
+	}
+}
