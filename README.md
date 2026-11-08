@@ -21,7 +21,7 @@ built-in ones - no extra commands, no config screens.
 ## Installation
 
 1. Install Fabric Loader 0.20.1+ and Fabric API.
-2. Pick the jar that matches your game version, e.g. `URC-1.0.0+26.1.2.jar` for Minecraft 26.1.2,
+2. Pick the jar that matches your game version, e.g. `URC-1.2+26.1.2.jar` for Minecraft 26.1.2,
    and drop it together with `Carpet` into `mods/`.
 3. In game, run `/carpet <rule> <value>` (requires Carpet's command permission).
 
@@ -47,6 +47,7 @@ built-in ones - no extra commands, no config screens.
 | `fastElytra` | bool | 烟花给鞘翅加速不再受 1.5 格/tick 上限 |
 | `mixedSlab` | bool | 两种不同半砖可拼成一个完整方块，破坏时只拆掉瞄准的一半 |
 | `simpleObserverPlacement` | bool | 在侦测器正面放方块不会触发侦测器 |
+| `hopperIdleCooldown` | int 0~20 | 空闲漏斗的重试间隔（0=原版每 tick 重试） |
 | `silkTouchFortune` | bool | 精准采集与时运不再冲突，精准采集掉落吃时运倍率 |
 | `noIceMelting` | bool | 冰块不再自然融化，玩家破坏仍变成水 |
 

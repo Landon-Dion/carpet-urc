@@ -12,6 +12,7 @@ All notable changes to this project are documented here.
 - `simpleObserverPlacement` - placing a block against an observer's face does not make it pulse.
 - `silkTouchFortune` - Silk Touch and Fortune are compatible; silk-touch drops use the vanilla fortune formula.
 - `noIceMelting` - ice no longer melts naturally, breaking it still leaves water.
+- `hopperIdleCooldown` - configurable idle retry interval for hoppers (0 = vanilla every tick) plus an always-on 54-slot container cache.
 
 ### Packaging
 - One jar per Minecraft version: `URC-1.2+26.1.jar`, `+26.1.1`, `+26.1.2`, `+26.2`, `+26.3`, each pinned to its exact game version.
