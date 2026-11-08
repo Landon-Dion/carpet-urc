@@ -45,3 +45,6 @@ replay_*.log
 dist/
 .research*/
 *.bak
+
+# local-only ports (not published)
+legacy/
