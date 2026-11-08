@@ -2,7 +2,11 @@ package com.urc;
 
 import carpet.CarpetServer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.item.v1.EnchantingContext;
+import net.fabricmc.fabric.api.item.v1.EnchantmentEvents;
+import net.fabricmc.fabric.api.util.TriState;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.world.item.Items;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,11 +32,32 @@ public class URC implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		URCBlocks.register();
+		URCBlockEntities.register();
+		registerEnchantingEvents();
 		CarpetServer.manageExtension(EXTENSION);
 
 		// Fallback for the (unusual) case where Carpet's game-start hook already ran.
 		EXTENSION.registerRules();
 
 		LOGGER.info("URC {} loaded, Carpet extension registered", VERSION);
+	}
+
+	/**
+	 * Lets hoppers pass the anvil's enchantment applicability check when {@code fastHopper} is on.
+	 *
+	 * <p>Fabric API already redirects that check in {@code AnvilMenu.createResult} to fire
+	 * {@link EnchantmentEvents#ALLOW_ENCHANTING}. Redirecting the same instruction from URC made
+	 * the two redirects mutually exclusive and crashed the game, so use the event instead.</p>
+	 */
+	private static void registerEnchantingEvents() {
+		EnchantmentEvents.ALLOW_ENCHANTING.register((enchantment, stack, context) -> {
+			if (URCSettings.fastHopper
+					&& context == EnchantingContext.ACCEPTABLE
+					&& stack.is(Items.HOPPER)) {
+				return TriState.TRUE;
+			}
+
+			return TriState.DEFAULT;
+		});
 	}
 }

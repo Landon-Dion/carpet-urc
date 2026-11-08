@@ -176,6 +176,21 @@ if (difficulty == NORMAL || difficulty == HARD) {
 
 `updateShape` 的放行条件是"该门块所在平面仍构成黑曜石闭环"，所以**拆掉框上的黑曜石后门仍会正常消失**，不会留下悬空传送门方块。
 
+## 规则：`hopperIdleCooldown`（漏斗优化）
+
+```
+/carpet hopperIdleCooldown 4
+```
+
+原版每个漏斗每 tick 都会尝试转移；只有成功移动才会设置 8 tick 冷却。因此空闲漏斗会**每 tick** 做一次容器查找，上方没有容器时还会做两次 AABB 实体查询（`getEntityContainer` 找容器实体、`getItemsAtAndAbove` 找掉落物）。双箱子是 54 格，而 `CACHED_SLOTS` 只缓存 0~53 格，导致每次 `getSlots` 都新建 `int[54]`。
+
+| 行为 | 说明 |
+| --- | --- |
+| 54 格容器槽位缓存 | 始终开启；双箱子等 54 格容器的 `int[54]` 只创建一次，纯分配优化，不改变行为 |
+| 空闲冷却 | `hopperIdleCooldown` 控制空闲漏斗未移动物品后等待的 tick 数；`0` 保持原版每 tick 重试，建议 `4~8` |
+
+`hopperIdleCooldown > 0` 会把物品拾取延迟最多 `N-1` tick（默认 `0`，开启后属于有意的性能取舍）。
+
 ## 环境要求
 
 | 组件 | 版本 |
@@ -277,3 +292,73 @@ MIT
 - 非铲子工具、无时运、非玩家破坏（活塞/爆炸）都走原版。
 
 > 如果你想要更夸张的倍率（例如 4 × (等级+1) 或最低固定 5 且每级再 +2），告诉我数值即可，逻辑只有一处。
+
+## 规则十四：`halfSlabBreak`（更好的半砖放置）
+
+```
+/carpet halfSlabBreak true
+```
+
+破坏双层半砖时不再整块消失：
+
+- 用视线与方块包围盒求交，判断被瞄准的是上半还是下半；
+- 只移除被瞄准的那一半，掉落 1 个对应半砖；
+- 方块原地保留为另一半的单层半砖。
+
+## 规则十五：`fastHopper`（高速漏斗）
+
+```
+/carpet fastHopper true
+```
+
+- 铁砧允许把效率 V 附魔书打到漏斗物品上（`Enchantment#canEnchant` 对漏斗放行）；
+- 放置后 `BlockItem` 会把物品的组件（含 `ENCHANTMENTS`）复制到方块实体；
+- 带效率 V 的漏斗每 tick 反复调用原版 `tryMoveItems`，直到没有物品可搬，因此 5 个槽位可以在同一 tick 内并行吸取/输出。
+
+## 规则十六：`fastElytra`（高速鞘翅）
+
+```
+/carpet fastElytra true
+```
+
+原版烟花把速度插值到 `视线 × 1.5`；规则改为 `当前速度 + 视线 × 0.1`，每 tick 累加，可无限叠加。
+
+## 规则十七：`mixedSlab`（混合半砖）
+
+```
+/carpet mixedSlab true
+```
+
+- 手持一种半砖，右键另一种**单层**半砖 → 两种材质合成一个完整方块（上方/下方各一种）；
+- 方块本身不可见（`RenderShape.INVISIBLE`），由 `MixedSlabRenderer` 用两个 `MovingBlockRenderState` 分别绘制上、下两半；
+- 破坏时按视线命中点只拆掉被瞄准的一半，另一半还原成对应的单层半砖并留在原地；
+- 爆破解体等非玩家破坏由 `getDrops` 返回两块半砖。
+
+## 规则十八：`simpleObserverPlacement`（简易放置侦测器）
+
+```
+/carpet simpleObserverPlacement true
+```
+
+原版侦测器在 `updateShape` 里发现"朝向方向上的方块发生变化"就会 `scheduleTick` 并输出脉冲，因此贴脸放方块也会触发一次。
+
+规则开启后，玩家通过 `BlockItem#place` 放置方块期间会打上标记；这段时间内侦测器的 `updateShape` 直接返回原状态，不再调度脉冲。放置之外的方块变化（挖掉、活塞、流体等）仍按原版检测。
+
+## 规则十九：`silkTouchFortune`（精准采集可附魔时运）
+
+```
+/carpet silkTouchFortune true
+```
+
+两部分：
+
+1. **解除冲突**：`Enchantment.areCompatible` 对"精准采集 + 时运"直接返回 true，所以铁砧可以把两本书合到同一把工具上，附魔台也有机会同时给出。
+2. **精准采集吃时运**：原版战利品表在精准采集成立时走 `silk_touch` 分支，时运函数根本不会执行。规则在 `Block#dropResources` 里对"掉落物 == 方块本身"的那一项乘以 `时运等级 + 1`，并按堆叠上限拆分；其它掉落项保持原样。
+
+## 规则二十：`noIceMelting`（冰？水？）
+
+```
+/carpet noIceMelting true
+```
+
+原版冰块在 `randomTick` 里检测光照，亮度大于 11 就 `melt` 成水。规则直接在 `IceBlock#randomTick` 入口取消，于是自然融化消失；`playerDestroy` 的"破坏后变成水源"逻辑不经过 randomTick，保持原版，精准采集也照常掉冰块。

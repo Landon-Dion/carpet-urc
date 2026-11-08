@@ -84,6 +84,55 @@ public final class URCSettings {
 	@Rule(categories = { "urc" })
 	public static boolean fortuneClay = false;
 
+
+	/** Ice does not melt naturally; breaking it still turns it into water. */
+	@Rule(categories = { "urc" })
+	public static boolean noIceMelting = false;
+
+	/** Silk Touch and Fortune can coexist; ice, packed ice and blue ice drops get the Fortune multiplier. */
+	@Rule(categories = { "urc" })
+	public static boolean silkTouchFortune = false;
+
+	/** Placing a block against an observer's face does not make it pulse. */
+	@Rule(categories = { "urc" })
+	public static boolean simpleObserverPlacement = false;
+
+	/** Two different slab items can be combined into one full block, and breaking it splits it again. */
+	@Rule(categories = { "urc" })
+	public static boolean mixedSlab = false;
+
+	/** Breaking a double slab only destroys one half. */
+	@Rule(categories = { "urc" })
+	public static boolean halfSlabBreak = false;
+
+	/** Hoppers enchanted with Efficiency V transfer one item per tick. */
+	@Rule(categories = { "urc" })
+	public static boolean fastHopper = false;
+
+	/** Firework rockets accelerate an elytra without the vanilla 1.5 blocks/tick cap. */
+	@Rule(categories = { "urc" })
+	public static boolean fastElytra = false;
+
+	/**
+	 * Ticks an idle hopper waits after a failed transfer instead of retrying every tick.
+	 * 0 keeps vanilla's every-tick retry. The 54-slot container array cache is always active.
+	 */
+	@Rule(categories = { "urc" }, validators = { HopperIdleCooldown.class })
+	public static int hopperIdleCooldown = 0;
+
+	/** Keeps the idle cooldown in a range that cannot freeze a hopper for long. */
+	public static class HopperIdleCooldown extends Validator<Integer> {
+		@Override
+		public Integer validate(CommandSourceStack source, CarpetRule<Integer> rule, Integer value, String userInput) {
+			return value != null && value >= 0 && value <= 20 ? value : null;
+		}
+
+		@Override
+		public String description() {
+			return "0..20 ticks";
+		}
+	}
+
 	/** Keeps the search radius sane: huge values force-load an enormous amount of chunks. */
 	public static class PortalSearchRadius extends Validator<Integer> {
 		@Override

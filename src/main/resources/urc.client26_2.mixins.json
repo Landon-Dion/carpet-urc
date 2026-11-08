@@ -3,7 +3,8 @@
 	"package": "com.urc.mixin.client",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
-		"HudMixin"
+		"HudMixin",
+		"MultiPlayerGameModeMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

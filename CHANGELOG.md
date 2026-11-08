@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented here.
 
+## [1.2] - 2026-11-08
+
+### New rules
+- `halfSlabBreak` - breaking a double slab destroys only the aimed half, the other half stays.
+- `fastHopper` - anvil can apply Efficiency V to a hopper; enchanted hoppers transfer up to five items per tick.
+- `fastElytra` - firework rockets accelerate elytra without the vanilla 1.5 blocks/tick cap.
+- `mixedSlab` - two different slabs combine into one full block (custom block entity + renderer), split again when broken, and can be pushed by pistons.
+- `simpleObserverPlacement` - placing a block against an observer's face does not make it pulse.
+- `silkTouchFortune` - Silk Touch and Fortune are compatible; silk-touch drops use the vanilla fortune formula.
+- `noIceMelting` - ice no longer melts naturally, breaking it still leaves water.
+
+### Packaging
+- One jar per Minecraft version: `URC-1.2+26.1.jar`, `+26.1.1`, `+26.1.2`, `+26.2`, `+26.3`, each pinned to its exact game version.
+
 ## [1.0.0] - 2026-11-06
 
 Initial release for Minecraft 26.x on Fabric, as a Carpet Mod extension.

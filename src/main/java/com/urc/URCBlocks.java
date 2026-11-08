@@ -1,5 +1,6 @@
 package com.urc;
 
+import com.urc.block.MixedSlabBlock;
 import com.urc.portal.HorizontalNetherPortalBlock;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -15,6 +16,16 @@ public final class URCBlocks {
 	private static final ResourceKey<Block> HORIZONTAL_NETHER_PORTAL_ID = ResourceKey.create(
 			Registries.BLOCK,
 			Identifier.fromNamespaceAndPath(URC.MOD_ID, "horizontal_nether_portal"));
+
+	private static final ResourceKey<Block> MIXED_SLAB_ID = ResourceKey.create(
+			Registries.BLOCK,
+			Identifier.fromNamespaceAndPath(URC.MOD_ID, "mixed_slab"));
+
+	public static final Block MIXED_SLAB = new MixedSlabBlock(
+			BlockBehaviour.Properties.of()
+					.setId(MIXED_SLAB_ID)
+					.strength(2.0f)
+					.sound(SoundType.STONE));
 
 	public static final Block HORIZONTAL_NETHER_PORTAL = new HorizontalNetherPortalBlock(
 			BlockBehaviour.Properties.of()
@@ -36,5 +47,7 @@ public final class URCBlocks {
 				BuiltInRegistries.BLOCK,
 				HORIZONTAL_NETHER_PORTAL_ID,
 				HORIZONTAL_NETHER_PORTAL);
+
+		Registry.register(BuiltInRegistries.BLOCK, MIXED_SLAB_ID, MIXED_SLAB);
 	}
 }

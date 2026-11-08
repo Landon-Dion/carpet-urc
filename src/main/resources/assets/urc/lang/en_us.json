@@ -26,5 +26,22 @@
 	"carpet.rule.superFastFurnace.name": "Super Fast Furnace",
 	"carpet.rule.superFastFurnace.desc": "Every furnace, smoker and blast furnace recipe finishes in 1 tick (the recipe cooking time itself is overridden, so it applies to the first and every later smelt).",
 	"carpet.rule.fortuneClay.name": "Fortune Clay",
-	"carpet.rule.fortuneClay.desc": "Mining clay with a Fortune shovel always drops at least 4 + fortune level clay balls (5 with Fortune I) instead of the vanilla 4."
+	"carpet.rule.fortuneClay.desc": "Mining clay with a Fortune shovel always drops at least 4 + fortune level clay balls (5 with Fortune I) instead of the vanilla 4.",
+	"carpet.rule.halfSlabBreak.name": "Better Slab Placement",
+	"carpet.rule.halfSlabBreak.desc": "Breaking a double slab only destroys one half: the block stays as a single slab and drops one slab item (vanilla removes the whole block and drops two). Mining from above keeps the bottom half, from below keeps the top half.",
+	"carpet.rule.fastHopper.name": "Fast Hopper",
+	"carpet.rule.fastHopper.desc": "An Efficiency V enchanted book can be applied to a hopper in an anvil; hoppers with Efficiency V transfer one item per tick instead of one per 8 ticks.",
+	"carpet.rule.fastElytra.name": "Fast Elytra",
+	"carpet.rule.fastElytra.desc": "Firework rockets no longer pull elytra flight back to the 1.5 blocks/tick cap; each rocket tick adds speed along the look direction, stacking without limit.",
+	"carpet.rule.mixedSlab.name": "Mixed Slabs",
+	"carpet.rule.mixedSlab.desc": "Right-click a single slab with a different slab to combine both materials into one full block; breaking it splits off only the aimed half.",
+	"block.urc.mixed_slab": "Mixed Slab",
+	"carpet.rule.simpleObserverPlacement.name": "Simple Observer Placement",
+	"carpet.rule.simpleObserverPlacement.desc": "Placing a block against an observer's face no longer makes it pulse; other block changes are still detected normally.",
+	"carpet.rule.silkTouchFortune.name": "Silk Touch + Fortune",
+	"carpet.rule.silkTouchFortune.desc": "Silk Touch and Fortune no longer conflict and can be put on one tool; mining ice, packed ice or blue ice with both multiplies the silk-touch drop by fortune level + 1.",
+	"carpet.rule.hopperIdleCooldown.name": "Hopper Optimization",
+	"carpet.rule.hopperIdleCooldown.desc": "Ticks an idle hopper waits after a failed transfer (0 = vanilla retries every tick; 4-8 recommended). The 54-slot container array cache is always on.",
+	"carpet.rule.noIceMelting.name": "Ice? Water?",
+	"carpet.rule.noIceMelting.desc": "Ice no longer melts from light; breaking it by hand still turns it into a water source (silk touch still drops ice)."
 }

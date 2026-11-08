@@ -14,8 +14,19 @@
 		"ZombieMixin",
 		"GolemSensorMixin",
 		"AbstractCookingRecipeMixin",
-		"ClayFortuneMixin",
-		"EntityAccessor"
+		"EntityAccessor",
+		"FireworkRocketMixin",
+		"HopperBlockEntityMixin",
+		"HopperOptimizationMixin",
+		"ServerPlayerGameModeMixin",
+		"HopperAccessor",
+		"BlockItemMixin",
+		"PistonBaseBlockMixin",
+		"PistonMovingBlockEntityMixin",
+		"ObserverBlockMixin",
+		"EnchantmentMixin",
+		"BlockMixin",
+		"IceBlockMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

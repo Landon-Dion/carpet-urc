@@ -42,6 +42,13 @@ built-in ones - no extra commands, no config screens.
 | `whiteLooting` | bool | 抢夺对铁傀儡生效（+1 铁锭/级 + 随机虞美人） |
 | `superFastFurnace` | bool | 所有烧制 1 tick |
 | `fortuneClay` | bool | 时运铲挖粘土至少 4 + 等级 个粘土球 |
+| `halfSlabBreak` | bool | 破坏双层半砖只破坏被瞄准的那一半，方块保留为单层 |
+| `fastHopper` | bool | 铁砧可给漏斗打效率 V；带效率 V 的漏斗每 tick 并行处理全部 5 个槽位 |
+| `fastElytra` | bool | 烟花给鞘翅加速不再受 1.5 格/tick 上限 |
+| `mixedSlab` | bool | 两种不同半砖可拼成一个完整方块，破坏时只拆掉瞄准的一半 |
+| `simpleObserverPlacement` | bool | 在侦测器正面放方块不会触发侦测器 |
+| `silkTouchFortune` | bool | 精准采集与时运不再冲突，精准采集掉落吃时运倍率 |
+| `noIceMelting` | bool | 冰块不再自然融化，玩家破坏仍变成水 |
 
 默认全部关闭，用例如下：
 

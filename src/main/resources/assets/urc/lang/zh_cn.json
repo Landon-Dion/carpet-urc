@@ -26,5 +26,22 @@
 	"carpet.rule.superFastFurnace.name": "超光速熔炉",
 	"carpet.rule.superFastFurnace.desc": "所有熔炉/烟熏炉/高炉的烧制时间变为 1 tick（直接改烹饪配方的 cookingTime，首次与之后的每一次烧制都生效）。",
 	"carpet.rule.fortuneClay.name": "时运粘土",
-	"carpet.rule.fortuneClay.desc": "用附有时运的铲子挖粘土时，粘土球掉落至少为 4 + 时运等级（时运 I 起最低 5 个），高于原版的 4 个。"
+	"carpet.rule.fortuneClay.desc": "用附有时运的铲子挖粘土时，粘土球掉落至少为 4 + 时运等级（时运 I 起最低 5 个），高于原版的 4 个。",
+	"carpet.rule.halfSlabBreak.name": "更好的半砖放置",
+	"carpet.rule.halfSlabBreak.desc": "破坏双层半砖时只破坏其中一半：方块会保留成单层半砖，并掉落 1 个对应半砖（原版是整块消失、掉落 2 个）。从上往下挖保留下半，从下往上挖保留上半。",
+	"carpet.rule.fastHopper.name": "高速漏斗",
+	"carpet.rule.fastHopper.desc": "允许在铁砧上把效率 V 附魔书打到漏斗上；带效率 V 的漏斗传输速度由原版 8 tick/个 改为 1 tick/个。",
+	"carpet.rule.fastElytra.name": "高速鞘翅",
+	"carpet.rule.fastElytra.desc": "鞘翅飞行时烟花火箭不再把速度拉回 1.5 格/tick 的上限，改为每 tick 沿视线累加速度，可以无限叠加。",
+	"carpet.rule.mixedSlab.name": "混合半砖",
+	"carpet.rule.mixedSlab.desc": "手持一种半砖右键另一种单层半砖，可以把两者合成一个完整方块（上下各一种材质）；破坏时只移除被瞄准的那一半。",
+	"block.urc.mixed_slab": "混合半砖",
+	"carpet.rule.simpleObserverPlacement.name": "简易放置侦测器",
+	"carpet.rule.simpleObserverPlacement.desc": "玩家在侦测器正面放置方块时，不会触发侦测器发出信号（其它方块变化仍然正常检测）。",
+	"carpet.rule.silkTouchFortune.name": "精准采集可附魔时运",
+	"carpet.rule.silkTouchFortune.desc": "精准采集与时运不再冲突，可以同时附在工具上；用带精准采集+时运的工具挖冰、浮冰、蓝冰时，掉落数量按 (时运等级+1) 倍增加。",
+	"carpet.rule.hopperIdleCooldown.name": "漏斗优化",
+	"carpet.rule.hopperIdleCooldown.desc": "空闲漏斗未移动物品后等待的 tick 数（0 = 原版每 tick 重试；建议 4 到 8）。54 格容器槽位数组缓存始终开启。",
+	"carpet.rule.noIceMelting.name": "冰？水？",
+	"carpet.rule.noIceMelting.desc": "冰块不再因为光照自然融化成水；玩家手动破坏时仍然会变成水源（精准采集照常掉落冰块）。"
 }
